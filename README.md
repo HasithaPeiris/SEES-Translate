@@ -1,0 +1,1 @@
+A translation application that translates Sinhala to English and English to Sinhala.
