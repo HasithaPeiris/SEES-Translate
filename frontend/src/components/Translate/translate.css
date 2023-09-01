@@ -1,0 +1,169 @@
+/* translation.css */
+
+:root{
+    --primary-color: #356aff;
+    --bg-color: #ffffff;
+    --light-bg-color: #ffffff;
+    --text-color: #111116;
+    --light-text-color: #cdccd1;
+    --primary-text-color: #ffffff;
+    --accent-color: #F26101;
+}
+  
+.translator-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px 0;
+}
+
+.translator-container .dark{
+    --bg-color: #111116;
+    --light-bg-color: #1c1b20;
+    --text-color: #fff;
+    --light-text-color: #58575c;
+}
+
+.language-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.language-selector .language-dropdown {
+    appearance: none;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    width: 150px;
+    margin: 0 5px;
+}
+
+.language-selector select:hover,
+.language-selector select:focus {
+    border-color: #007bff;
+}
+
+.swap-position{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 5px solid var(--bg-color);
+    transition: all 0.3s;
+    color: var(--primary-text-color);
+    background-color: var(--primary-color);
+}
+
+.swap-position ion-icon {
+    font-size: 25px;
+}
+
+.swap-position:hover{
+    transform: translateX(-50%) scale(1.1);
+}
+
+.translation-boxes {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+
+.input-box,
+.output-box {
+    flex: 1;
+    padding: 30px;
+    border: 1px solid #E0E0E0;
+    border-radius: 20px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.input-box textarea,
+.output-box textarea {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 18px;
+}
+
+.input-box:hover,
+.input-box:focus,
+.output-box:hover,
+.output-box:focus {
+    border-color: var(--primary-color);
+}
+
+.mode{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1;
+}
+
+.toggle{
+    position: relative;
+    cursor: pointer;
+}
+
+.toggle-track{
+    width: 24px;
+    height: 50px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 3px 0;
+    justify-content: space-between;
+    border: 1px solid var(--light-text-color);
+    background-color: var(--light-bg-color);
+    transition: all 0.3s ease;
+}
+
+.toggle-checkbox{
+    display: none;
+}
+
+.toggle-thumb{
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    transition: all 0.5s;
+}
+
+.toggle input:checked ~ .toggle-thumb{
+    transform: translateY(25px);
+}
+
+.toggle ion-icon{
+    font-size: 20px;
+}
+
+
+@media (max-width: 800px){
+    .translation-boxes{
+    width: 100%;
+    }
+}
+    
