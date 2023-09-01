@@ -12,7 +12,9 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
+// routes
 app.use('/api/translations', require('./routes/translationRoutes'))
+app.use('/api/users', require('./routes/userRoutes'))
 
 app.use(errorHandler)
 

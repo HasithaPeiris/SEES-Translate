@@ -7,8 +7,10 @@ const {
     deleteTranslation
 } = require('../controllers/translationController')
 
-router.route('/').get(getTranslations).post(saveTranslation)
+const {protect} = require('../middleware/authMiddleware')
 
-router.route('/:id').put(updateTranslation).delete(deleteTranslation)
+router.route('/').get(protect, getTranslations).post(protect, saveTranslation)
+
+router.route('/:id').put(protect, updateTranslation).delete(protect, deleteTranslation)
 
 module.exports = router

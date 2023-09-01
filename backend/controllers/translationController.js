@@ -1,12 +1,13 @@
 const asyncHandler = require('express-async-handler')
 
 const Translation = require('../models/translationModel')
+const User = require('../models/userModel')
 
 // @desc    Get Translations
 // @route   GET /api/translations
 // @access  Private 
 const getTranslations = asyncHandler (async (req, res) => {
-    const translations = await Translation.find()
+    const translations = await Translation.find({user: req.user.id})
 
     res.status(200).json(translations)
 })
@@ -22,7 +23,8 @@ const saveTranslation = asyncHandler (async (req, res) => {
     }
 
     const translation = await Translation.create({
-        text: req.body.text
+        text: req.body.text,
+        user: req.user.id
     })
 
     res.status(200).json(translation)
@@ -37,6 +39,20 @@ const updateTranslation = asyncHandler (async (req, res) => {
     if(!translation){
         res.status(400)
         throw new Error('Translation not found')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    // Check for user
+    if(!user){
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // Make sure the logged in user matches the translation
+    if(translation.user.toString() !== user.id){
+        res.status(401)
+        throw new Error('User not authorized')
     }
 
     const updatedTranslation = await Translation.findByIdAndUpdate(req.params.id, req.body, {
@@ -55,6 +71,20 @@ const deleteTranslation = asyncHandler (async (req, res) => {
     if(!translation){
         res.status(400)
         throw new Error('Translation not found')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    // Check for user
+    if(!user){
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // Make sure the logged in user matches the translation
+    if(translation.user.toString() !== user.id){
+        res.status(401)
+        throw new Error('User not authorized')
     }
 
     await translation.deleteOne()
