@@ -73,17 +73,13 @@ function Translate() {
 
     const handleSwapLanguages = () => {
         // Swap input and output languages
-        const tempInputLang = inputLang;
-        setInputLang(outputLang);
-        setOutputLang(tempInputLang);
-
-        // Swap input and output text values
-        const translationInputElement = document.getElementById('translation-input');
-        const translationOutputElement = document.getElementById('translation-output');
-
-        const tempInputText = translationInputElement.value;
-        translationInputElement.value = translationOutputElement.value;
-        translationOutputElement.value = tempInputText;
+        setInputLang((prevInputLang) => (prevInputLang === 'en' ? 'si' : 'en'));
+        setOutputLang((prevOutputLang) => (prevOutputLang === 'en' ? 'si' : 'en'));
+    
+        // Swap input and output text values using state variables
+        const tempInputText = inputText;
+        setInputText(translatedText);
+        setTranslatedText(tempInputText);
     };
 
   return (
