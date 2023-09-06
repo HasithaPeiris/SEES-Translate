@@ -6,14 +6,11 @@ function Translate() {
 
     const [inputLang, setInputLang] = useState('en');
     const [outputLang, setOutputLang] = useState('si');
-    const [showTextInput, setShowTextInput] = useState(false);
     const [inputText, setInputText] = useState('');
     const [translatedText, setTranslatedText] = useState('');
 
     const [singlishInput, setSinglishInput] = useState(''); // Singlish input
     const [translatedSinglishText, setTranslatedSinglishText] = useState(''); // Singlish translation
-
-    const [isDarkMode, setIsDarkMode] = useState(false);
 
     // Singlish Translation
     const handleSinglishInputChange = (event) => {
@@ -25,10 +22,30 @@ function Translate() {
         setTranslatedSinglishText(newTranslatedText);
     };
 
+    // Translation function
+    const handleTranslation = () => {
+        const inputLanguageCode = inputLang;
+        const outputLanguageCode = outputLang;
+
+        // API URL
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguageCode}&tl=${outputLanguageCode}&dt=t&q=${encodeURI(
+            inputText
+        )}`;
+
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                const translatedText = json[0].map((item) => item[0]).join("");
+                setTranslatedText(translatedText); // Update React state with translated text
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
     const handleInputLangChange = (event) => {
         const selectedLang = event.target.value;
         setInputLang(selectedLang);
-        setShowTextInput(selectedLang === 'si');
     };
 
     const handleOutputLangChange = (event) => {
@@ -37,6 +54,7 @@ function Translate() {
 
     const handleInputChange = (event) => {
         setInputText(event.target.value);
+        handleTranslation();
     };
 
     const handleSwapLanguages = () => {
@@ -52,15 +70,6 @@ function Translate() {
         const tempInputText = translationInputElement.value;
         translationInputElement.value = translationOutputElement.value;
         translationOutputElement.value = tempInputText;
-    };
-
-    const handleDarkModeChange = () => {
-        setIsDarkMode(prevMode => !prevMode);
-    };
-
-    const handleTranslation = () => {
-        // Implement your translation logic here
-        setTranslatedText(inputText);
     };
 
   return (
@@ -122,7 +131,7 @@ function Translate() {
                     <input type="checkbox"
                         className="toggle-checkbox"
                         id="dark-mode-btn"
-                        onChange={handleDarkModeChange}/>
+                        />
                     <ion-icon name="sunny-outline"></ion-icon>
                     <ion-icon name="moon-outline"></ion-icon>
                     <span className="toggle-thumb"></span>
