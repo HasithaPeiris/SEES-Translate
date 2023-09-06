@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./translate.css"
 import SinglishTranslate from "./singlishTranslate"
 
@@ -11,6 +11,10 @@ function Translate() {
     const [singlishInput, setSinglishInput] = useState(''); // Singlish input
     const [translatedSinglishText, setTranslatedSinglishText] = useState(''); // Singlish translation
     const [inputCharsCount, setInputCharsCount] = useState(0); // Handle character input limit
+
+    const [darkMode, setDarkMode] = useState(
+        localStorage.getItem('darkMode') === 'true' || false
+    );
 
     // Singlish Translation
     const handleSinglishInputChange = (event) => {
@@ -81,6 +85,23 @@ function Translate() {
         setInputText(translatedText);
         setTranslatedText(tempInputText);
     };
+
+    // Toggle dark mode
+    const toggleDarkMode = () => {
+        const newDarkMode = !darkMode;
+        setDarkMode(newDarkMode);
+        // Store the dark mode preference in localStorage
+        localStorage.setItem('darkMode', newDarkMode);
+    };
+
+    // Set dark mode class on body element
+    useEffect(() => {
+        if (darkMode) {
+        document.body.classList.add('dark');
+        } else {
+        document.body.classList.remove('dark');
+        }
+    }, [darkMode]);
 
   return (
     <div className='translator-container'>
@@ -156,10 +177,13 @@ function Translate() {
         <div className='mode'>
             <label htmlFor="dark-mode-btn" className="toggle">
                 <div className="toggle-track">
-                    <input type="checkbox"
+                    <input
+                        type="checkbox"
                         className="toggle-checkbox"
                         id="dark-mode-btn"
-                        />
+                        onChange={toggleDarkMode}
+                        checked={darkMode}
+                    />
                     <ion-icon name="sunny-outline"></ion-icon>
                     <ion-icon name="moon-outline"></ion-icon>
                     <span className="toggle-thumb"></span>
