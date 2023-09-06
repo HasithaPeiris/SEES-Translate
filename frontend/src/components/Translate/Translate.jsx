@@ -8,17 +8,23 @@ function Translate() {
     const [outputLang, setOutputLang] = useState('si');
     const [inputText, setInputText] = useState('');
     const [translatedText, setTranslatedText] = useState('');
-
     const [singlishInput, setSinglishInput] = useState(''); // Singlish input
     const [translatedSinglishText, setTranslatedSinglishText] = useState(''); // Singlish translation
+    const [inputCharsCount, setInputCharsCount] = useState(0); // Handle character input limit
 
     // Singlish Translation
     const handleSinglishInputChange = (event) => {
-        const newInput = event.target.value;
-        setSinglishInput(newInput);
+        const newValue = event.target.value;
+
+        if (newValue.length > 5000) {
+            setSinglishInput(newValue.slice(0, 5000));
+        } else {
+            setSinglishInput(newValue);
+        }
 
         // Perform translation and update translatedText state
-        const newTranslatedText = SinglishTranslate(newInput);
+        const newTranslatedText = SinglishTranslate(newValue);
+        setInputCharsCount(newValue.length);
         setTranslatedSinglishText(newTranslatedText);
     };
 
@@ -53,8 +59,16 @@ function Translate() {
     };
 
     const handleInputChange = (event) => {
-        setInputText(event.target.value);
+        const newValue = event.target.value;
+
+        if (newValue.length > 5000) {
+            setInputText(newValue.slice(0, 5000));
+        } else {
+            setInputText(newValue);
+        }
+
         handleTranslation();
+        setInputCharsCount(newValue.length);
     };
 
     const handleSwapLanguages = () => {
@@ -97,22 +111,40 @@ function Translate() {
             }}>
             {inputLang === 'si' && (
                 <div className="input-box">
-                    <textarea
-                        placeholder="Singlish වලින් ලියන්න..."
-                        autoFocus
-                        value={singlishInput}
-                        onChange={handleSinglishInputChange}
-                    />
+                    <div className="text-area">
+                        <textarea
+                            placeholder="Singlish වලින් ලියන්න..."
+                            autoFocus
+                            value={singlishInput}
+                            onChange={handleSinglishInputChange}
+                        />
+                        <div className="chars">
+                            <span id="input-chars">{inputCharsCount}</span> / 5000
+                        </div>
+                    </div>
                 </div>
             )}
 
             <div className="input-box"> 
-                <textarea
-                    id='translation-input'
-                    placeholder={`Enter text in ${inputLang === 'si' ? 'Sinhala...' : 'English...'}`}
-                    value={inputLang === 'si' ? translatedSinglishText : inputText}
-                    onChange={handleInputChange}
-                />
+                <div className="text-area">
+                    <textarea
+                        id='translation-input'
+                        placeholder={`Enter text in ${inputLang === 'si' ? 'Sinhala...' : 'English...'}`}
+                        value={inputLang === 'si' ? translatedSinglishText : inputText}
+                        onChange={handleInputChange}
+                    />
+                    {/* if input language is Sinhala chars will be hidden in normal input box */}
+                    {inputLang==='si' ? (
+                        <div className="chars" style={{ display: 'none' }}>
+                            <span id="input-chars">{inputCharsCount}</span> / 5000
+                        </div>
+                    ):(
+                        <div className="chars">
+                            <span id="input-chars">{inputCharsCount}</span> / 5000
+                        </div>
+                    )}
+                    
+                </div>
             </div>
 
             <div className="output-box">

@@ -111,6 +111,18 @@
     border-color: var(--primary-color);
 }
 
+.text-area{
+    position: relative;
+}
+
+.text-area .chars{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 0.8rem;
+    color: var(--light-text-color);
+}
+
 .mode{
     position: fixed;
     bottom: 20px;
