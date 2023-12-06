@@ -7,9 +7,15 @@
     --text-color: #111116;
     --light-text-color: #cdccd1;
     --primary-text-color: #ffffff;
-    --accent-color: #F26101;
+    --border-color: #ccc;
+    --logo-text-color: #757575;
 }
-  
+
+body{
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
 .translator-container {
     display: flex;
     flex-direction: column;
@@ -17,11 +23,13 @@
     margin: 50px 0;
 }
 
-.translator-container .dark{
+body.dark{
     --bg-color: #111116;
     --light-bg-color: #1c1b20;
-    --text-color: #fff;
+    --text-color: #f4f4f4;
     --light-text-color: #58575c;
+    --border-color: #757575;
+    --logo-text-color: #cccccc;
 }
 
 .language-selector {
@@ -35,7 +43,8 @@
 .language-selector .language-dropdown {
     appearance: none;
     background-color: transparent;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
     padding: 10px;
     font-size: 14px;
     text-align: center;
@@ -44,6 +53,11 @@
     transition: border-color 0.3s ease-in-out;
     width: 150px;
     margin: 0 5px;
+}
+
+.language-dropdown option{
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .language-selector select:hover,
@@ -88,7 +102,7 @@
 .output-box {
     flex: 1;
     padding: 30px;
-    border: 1px solid #E0E0E0;
+    border: 1px solid var(--border-color);
     border-radius: 20px;
     transition: border-color 0.3s ease-in-out;
 }
@@ -102,6 +116,15 @@
     outline: none;
     border: none;
     font-size: 18px;
+    color: var(--text-color);
+}
+
+.text-area .chars{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 0.8rem;
+    color: var(--light-text-color);
 }
 
 .input-box:hover,
@@ -109,6 +132,10 @@
 .output-box:hover,
 .output-box:focus {
     border-color: var(--primary-color);
+}
+
+.text-area{
+    position: relative;
 }
 
 .mode{
@@ -132,7 +159,7 @@
     flex-direction: column;
     padding: 3px 0;
     justify-content: space-between;
-    border: 1px solid var(--light-text-color);
+    border: 1px solid var(--border-color);
     background-color: var(--light-bg-color);
     transition: all 0.3s ease;
 }
@@ -160,10 +187,25 @@
     font-size: 20px;
 }
 
+.translate-btn{
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    color: var(--primary-text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.translate-btn:hover{
+    background-color: var(--primary-color);
+}
+
 
 @media (max-width: 800px){
     .translation-boxes{
     width: 100%;
     }
 }
-    
