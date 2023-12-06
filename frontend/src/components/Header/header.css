@@ -1,0 +1,105 @@
+/* Header.css */
+
+:root{
+    --primary-color: #356aff;
+    --bg-color: #ffffff;
+    --light-bg-color: #ffffff;
+    --text-color: #111116;
+    --light-text-color: #cdccd1;
+    --primary-text-color: #ffffff;
+    --accent-color: #F26101;
+  }
+  
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 8vh;
+    /* background-color: #f0f0f0; */
+    border-bottom: 1px solid #E0E0E0;
+    position: relative;
+}
+    
+.logo {
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px;
+    color: #757575;
+}
+  
+.logo-text {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+  
+.menu-logo{
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px;
+    color: #757575;
+    margin-bottom: 40px;
+}
+    
+.menu-logo .logo-text {
+    font-weight: bold;
+    color: #6379F2;
+}
+
+.icons {
+    display: flex;
+    gap: 20px;
+}
+
+.user-icon{
+    display: none;
+}
+
+.user-icon ion-icon, .menu-icon ion-icon{
+    width: 30px;
+    height: 30px;
+    color: #757575;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user-icon ion-icon:hover, .menu-icon ion-icon:hover {
+    color: #6379F2;
+}
+
+.header.menu-open {
+    overflow: hidden;
+}
+
+.logo.logo-shifted {
+    transform: translateX(250px); /* Shift icons when menu is open */
+    transition: transform 0.3s ease;
+}
+
+.side-menu {
+    position: fixed;
+    top: 8vh;
+    right: -290px; /* Start outside the viewport */
+    width: 250px;
+    height: 100%;
+    background-color: #fff; /* Set your desired background color */
+    border-left: 1px solid #E0E0E0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    transition: right 0.3s ease; /* Add a smooth transition effect */
+    z-index: 1
+}
+
+.side-menu a {
+    color: #757575;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.show {
+    right: 0; /* Slide the menu into the viewport */
+}
